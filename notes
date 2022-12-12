@@ -1,0 +1,427 @@
+<template>
+  <input type="checkbox" v-model="isChecked">
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isChecked: false,
+    };
+  },
+};
+</script>
+
+
+<template>
+  <input type="checkbox" v-model="isChecked" v-on:change="onCheckboxChanged">
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isChecked: false,
+    };
+  },
+  methods: {
+    onCheckboxChanged() {
+      // do something when the checkbox is changed
+    },
+  },
+};
+</script>
+
+
+<template>
+  <input type="checkbox" v-model="isChecked" v-on:change="onCheckboxChanged">
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isChecked: false,
+    };
+  },
+  methods: {
+    onCheckboxChanged() {
+      // do something when the checkbox is changed
+    },
+  },
+};
+</script>
+
+
+onCheckboxChanged() {
+  if (this.isChecked) {
+    // do something if the checkbox is checked
+  } else {
+    // do something if the checkbox is unchecked
+  }
+},
+
+
+<template>
+  <div>
+    <div v-for="box in boxes" :key="box.id">
+     
+
+<template>
+  <div>
+    <div v-for="box in boxes" :key="box.id">
+      <input type="checkbox" v-model="box.checked"> {{ box.name }}
+    </div>
+    <button @click="runJobs">Run Jobs</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "MyComponent",
+  data() {
+    return {
+      boxes: [
+        { id: 1, name: "Box 1", checked: false, job: () => console.log("Running job for Box 1") },
+        { id: 2, name: "Box 2", checked: false, job: () => console.log("Running job for Box 2") },
+        { id: 3, name: "Box 3", checked: false, job: () => console.log("Running job for Box 3") }
+      ]
+    };
+  },
+  methods: {
+    runJobs() {
+      this.boxes.forEach(box => {
+        if (box.checked) {
+          box.job();
+        }
+      });
+    }
+  }
+};
+</script>
+
+
+-----
+Config
+------
+
+<template>
+  <div>
+    <div v-for="box in boxes" :key="box.id">
+      <input type="checkbox" v-model="box.enabled"> {{ box.name }}
+    </div>
+    <button @click="runJobs">Run Jobs</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "MyComponent",
+  data() {
+    return {
+      boxes: [
+        {
+          id: 1,
+          name: "Box 1",
+          enabled: false,
+          config: { ... }, // config for Box 1
+          job: (config) => console.log("Running job for Box 1 with config:", config)
+        },
+        {
+          id: 2,
+          name: "Box 2",
+          enabled: false,
+          config: { ... }, // config for Box 2
+          job: (config) => console.log("Running job for Box 2 with config:", config)
+        },
+        {
+          id: 3,
+          name: "Box 3",
+          enabled: false,
+          config: { ... }, // config for Box 3
+          job: (config) => console.log("Running job for Box 3 with config:", config)
+        }
+      ]
+    };
+  },
+  methods: {
+    runJobs() {
+      this.boxes.forEach(box => {
+        if (box.enabled) {
+          box.job(box.config);
+        }
+      });
+    }
+  }
+};
+</script>
+
+
+-----
+Boxes with config
+-----
+<template>
+ <div>
+   <div v-for="box in boxes" :key="box.id">
+     <input type="checkbox" v-model="box.enabled"> {{ box.name }}
+   </div>
+   <button @click="runJobs">Run Jobs</button>
+ </div>
+</template>
+ 
+<script>
+export default {
+ name: "MyComponent",
+ data() {
+   return {
+     boxes: [
+       {
+         id: 1,
+         name: "Box 1",
+         enabled: false,
+         config: {
+  port: 3000,
+  name: 'myapp'
+}, // config for Box 1
+         job: (config) => console.log("Running job for Box 1 with config:", config)
+       },
+       {
+         id: 2,
+         name: "Box 2",
+         enabled: false,
+         config: {
+  port: 3000,
+  name: 'myapp'
+}, // config for Box 2
+         job: (config) => console.log("Running job for Box 2 with config:", config)
+       },
+       {
+         id: 3,
+         name: "Box 3",
+         enabled: false,
+         config: {
+  port: 3000,
+  name: 'myapp'
+}, // config for Box 3
+         job: (config) => console.log("Running job for Box 3 with config:", config)
+       }
+     ]
+   };
+ },
+ methods: {
+   runJobs() {
+     this.boxes.forEach(box => {
+       if (box.enabled) {
+         box.job(box.config);
+       }
+     });
+   }
+ }
+};
+</script>
+
+-----
+Load config from json
+-------
+
+// config.json
+{
+  "key1": "value1",
+  "key2": "value2",
+  "key3": "value3"
+}
+
+// MyComponent.vue
+<template>
+  <div>
+    {{ config }}
+  </div>
+</template>
+
+<script>
+import config from "./config.json";
+
+export default {
+  name: "MyComponent",
+  data() {
+    return {
+      config
+    };
+  }
+};
+</script>
+-------
+SHow batchjob status no color
+-------
+<template>
+  <div>
+    <div v-for="box in boxes" :key="box.id">
+      {{ box.name }}: {{ box.status }}
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "MyComponent",
+  data() {
+    return {
+      boxes: [
+        { id: 1, name: "Box 1", status: "Pending" },
+        { id: 2, name: "Box 2", status: "Pending" },
+        { id: 3, name: "Box 3", status: "Pending" }
+      ]
+    };
+  },
+  created() {
+    this.intervalId = setInterval(this.updateStatus, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
+  },
+  methods: {
+    updateStatus() {
+      // Update the status of each box by calling an API or checking a database, etc.
+      this.boxes.forEach(box => {
+        box.status = Math.random() < 0.5 ? "Running" : "Completed";
+      });
+    }
+  }
+};
+</script>
+
+----
+Color coded batch job status
+----
+<template>
+  <div>
+    <div v-for="box in boxes" :key="box.id">
+      <div :style="getBoxStyle(box.status)">
+        {{ box.name }}: {{ box.status }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "MyComponent",
+  data() {
+    return {
+      boxes: [
+        { id: 1, name: "Box 1", status: "Pending" },
+        { id: 2, name: "Box 2", status: "Pending" },
+        { id: 3, name: "Box 3", status: "Pending" }
+      ]
+    };
+  },
+  created() {
+    this.intervalId = setInterval(this.updateStatus, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
+  },
+  methods: {
+    getBoxStyle(status) {
+      if (status === "Running") {
+        return {
+          backgroundColor: "yellow"
+        };
+      } else if (status === "Completed") {
+        return {
+          backgroundColor: "green"
+        };
+      } else {
+        return {};
+      }
+    },
+    updateStatus() {
+      // Update the status of each box by calling an API or checking a database, etc.
+      this.boxes.forEach(box => {
+        box.status = Math.random() < 0.5 ? "Running" : "Completed";
+      });
+    }
+  }
+};
+</script>
+
+----
+Batchjob layout
+----
+<template>
+ <div>
+   <div v-for="job in jobs" :key="job.id">
+     <label>Name:</label>
+     <input type="text" v-model="job.name">
+     <label>Description:</label>
+     <textarea v-model="job.description"></textarea>
+     <button @click="runJob(job)">Run Job</button>
+   </div>
+ </div>
+</template>
+ 
+<script>
+export default {
+ name: "MyComponent",
+ data() {
+   return {
+     jobs: [
+       { id: 1, name: "Job 1", description: "This is the first job" },
+       { id: 2, name: "Job 2", description: "This is the second job" },
+       { id: 3, name: "Job 3", description: "This is the third job" }
+     ]
+   };
+ },
+ methods: {
+   runJob(job) {
+     // Run the specified job by calling an API or using a job queue, etc.
+     console.log("Running job:", job);
+   }
+ }
+};
+</script>
+
+-------
+Vue stop start running job 
+------
+
+
+<template>
+ <div>
+   <h1>Batch Jobs</h1>
+   <div v-for="job in jobs" :key="job.id">
+     {{ job.name }}: {{ job.status }}
+     <button v-if="job.status === 'Pending'" @click="startJob(job)">Start</button>
+     <button v-if="job.status === 'Running'" @click="stopJob(job)">Stop</button>
+   </div>
+ </div>
+</template>
+ 
+<script>
+export default {
+ name: "BatchJobs",
+ data() {
+   return {
+     jobs: [
+       { id: 1, name: "Job 1", status: "Pending" },
+       { id: 2, name: "Job 2", status: "Pending" },
+       { id: 3, name: "Job 3", status: "Pending" }
+     ]
+   };
+ },
+ methods: {
+   startJob(job) {
+     // Update the job status to "Running" and start the job
+     job.status = "Running";
+     // ...
+   },
+   stopJob(job) {
+     // Update the job status to "Stopped" and stop the job
+     job.status = "Stopped";
+     // ...
+   }
+ }
+};
+</script>
+ 
+
